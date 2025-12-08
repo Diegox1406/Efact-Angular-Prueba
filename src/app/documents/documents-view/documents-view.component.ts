@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrl: './documents-view.component.css'
 })
 export class DocumentsViewComponent implements OnInit {
-  
+
   ticket = '571cc3a3-5b1f-4855-af26-0de6e7c5475f';
   selectedType: 'xml' | 'cdr' | 'pdf' | null = null;
   content = '';
@@ -22,76 +22,71 @@ export class DocumentsViewComponent implements OnInit {
   loading = false;
   error = '';
 
-  constructor(private documentsService: DocumentsService, private sanitizer: DomSanitizer, private authService: AuthService, private router: Router) { }
+  constructor(
+    private documentsService: DocumentsService,
+    private sanitizer: DomSanitizer,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    // Ver si hay token
     if (!this.authService.isAuthenticated()) {
       this.router.navigate(['/login']);
     }
   }
 
-  viewXml(): void {
+  private resetState(type: 'xml' | 'cdr' | 'pdf'): void {
     this.loading = true;
     this.error = '';
-    this.selectedType = 'xml';
-    this.pdfUrl = null;
+    this.selectedType = type;
 
+    if (type === 'pdf') {
+      this.content = '';
+    } else {
+      this.pdfUrl = null;
+    }
+  }
+
+  private handleError(err: any, docType: string): void {
+    console.error(`Error al cargar ${docType}:`, err);
+    this.error = err.status === 401
+      ? 'Su sesion ha terminado'
+      : `Error al cargar el archivo ${docType}`;
+    this.loading = false;
+  }
+
+  viewXml(): void {
+    this.resetState('xml');
     this.documentsService.getXml(this.ticket).subscribe({
       next: (data) => {
         this.content = data;
         this.loading = false;
       },
-      error: (err) => {
-        console.error('Error al cargar XML:', err);
-        this.error = err.status === 401
-          ? 'Sesión expirada. Por favor, inicie sesión nuevamente.'
-          : 'Error al cargar el archivo XML';
-        this.loading = false;
-      }
+      error: (err) => this.handleError(err, 'XML')
     });
   }
 
   viewCdr(): void {
-    this.loading = true;
-    this.error = '';
-    this.selectedType = 'cdr';
-    this.pdfUrl = null;
-
+    this.resetState('cdr');
     this.documentsService.getCdr(this.ticket).subscribe({
       next: (data) => {
         this.content = data;
         this.loading = false;
       },
-      error: (err) => {
-        console.error('Error al cargar CDR:', err);
-        this.error = err.status === 401
-          ? 'Sesión expirada. Por favor, inicie sesión nuevamente.'
-          : 'Error al cargar el archivo CDR';
-        this.loading = false;
-      }
+      error: (err) => this.handleError(err, 'CDR')
     });
   }
 
   viewPdf(): void {
-    this.loading = true;
-    this.error = '';
-    this.selectedType = 'pdf';
-    this.content = '';
-
+    this.resetState('pdf');
     this.documentsService.getPdf(this.ticket).subscribe({
       next: (blob) => {
         const url = URL.createObjectURL(blob);
         this.pdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(url);
         this.loading = false;
       },
-      error: (err) => {
-        console.error('Error al cargar PDF:', err);
-        this.error = err.status === 401
-          ? 'Sesión expirada. Por favor, inicie sesión nuevamente.'
-          : 'Error al cargar el archivo PDF';
-        this.loading = false;
-      }
+      error: (err) => this.handleError(err, 'PDF')
     });
   }
+  
 }
