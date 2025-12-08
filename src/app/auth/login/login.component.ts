@@ -23,10 +23,12 @@ export class LoginComponent {
 
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
+        console.log('Token recibido:', response.access_token);
         this.authService.setToken(response.access_token);
         this.router.navigate(['/documents']);
     },
     error: (error) => {
+        console.error('Error de login:', error);
         this.errorMessage = '¡Error, Usuario o contraseña incorrectos!';
       }
     });
