@@ -60,7 +60,8 @@
               "buildTarget": "efact-angular:build:production"
             },
             "development": {
-              "buildTarget": "efact-angular:build:development"
+              "buildTarget": "efact-angular:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

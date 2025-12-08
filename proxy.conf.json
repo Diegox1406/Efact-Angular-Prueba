@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "https://odin-dev.efact.pe",
+    "secure": true,
+    "changeOrigin": true
+  }
+}
