@@ -2,6 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
 
+## Screenshots
+
+### Login
+![Login Screen](./src/assets/loginView.png)
+
+### Visualización de Documentos
+![Documents View](./src/assets/documentsView.png)
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
