@@ -3,5 +3,11 @@
     "target": "https://odin-dev.efact.pe",
     "secure": true,
     "changeOrigin": true
+  },
+  "/api-efact-ose": {
+    "target": "https://odin-dev.efact.pe",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
 }

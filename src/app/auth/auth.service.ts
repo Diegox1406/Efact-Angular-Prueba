@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -34,15 +33,18 @@ export class AuthService {
 
   setToken(token: string) {
     localStorage.setItem('auth_token', token);
+    console.log('Token guardado:', token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('auth_token');
+    const token = localStorage.getItem('auth_token');
+    console.log('Token recuperado:', token);
+    return token;
   }
 
   logout() {
     localStorage.removeItem('auth_token');
-  } 
+  }
 
   isAuthenticated(): boolean {
     return this.getToken() !== null;
