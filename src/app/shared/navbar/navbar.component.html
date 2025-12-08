@@ -1,0 +1,11 @@
+<nav class="navbar">
+  <div class="navbar-content">
+    <div class="logo">
+      <img src="assets/efactLogo.png" alt="Efact Logo">
+    </div>
+    
+    <div class="nav-actions" *ngIf="isAuthenticated">
+      <button class="btn-logout" (click)="logout()">Cerrar Sesión</button>
+    </div>
+  </div>
+</nav>

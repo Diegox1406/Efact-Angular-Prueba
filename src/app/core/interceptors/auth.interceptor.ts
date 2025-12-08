@@ -9,7 +9,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  // No enviar token al login
   if (!req.url.includes('/oauth/token')) {
     const token = authService.getToken();
 
