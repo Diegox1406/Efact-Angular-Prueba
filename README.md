@@ -29,12 +29,17 @@ Frontend para la visualizacion de documentos electrónicos (PDF, XML, CDR) utili
 
 ## Endpoints de la API
 
-POST 
-    `/api-efact-ose/oauth/token` - Obtener token de acceso
-GET 
-    `/api-efact-ose/v1/xml/{ticket}` - Obtener archivo XML
-    `/api-efact-ose/v1/cdr/{ticket}` - Obtener archivo CDR
-    `/api-efact-ose/v1/pdf/{ticket}` - Obtener archivo PDF
+**POST** `/api-efact-ose/oauth/token`  
+Obtener token de acceso
+
+**GET** `/api-efact-ose/v1/xml/{ticket}`  
+Obtener archivo XML
+
+**GET** `/api-efact-ose/v1/cdr/{ticket}`  
+Obtener archivo CDR
+
+**GET** `/api-efact-ose/v1/pdf/{ticket}`  
+Obtener archivo PDF
 
 ## Screenshots
 
